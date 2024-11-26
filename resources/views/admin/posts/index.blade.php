@@ -19,21 +19,23 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">標題</th>
+            <th scope="col" style="text-align:left">標題</th>
+            <th scope="col" style="text-align:right">精選?</th>
             <th scope="col">功能</th>
         </tr>
         </thead>
         <tbody>
         @foreach($posts as $post)
             <tr>
-                <th scope="row" style="width: 50px">{{ $post->id }}</th>
+                <th style="text-align:right">{{ $post->id }}</th>
                 <td>{{ $post->title }}</td>
                 <td style="width: 150px">
-                    <a class="btn btn-primary btn-sm" href="{{ route('admin.posts.edit', $post->id) }}">編輯</a>
-                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="post" style="display: inline-block">
+                    <a class="btn btn-sm btn-primary" href="{{ route('posts.show', $post->id) }}">編輯</a>
+                    <a class="btn btn-primary btn-sm" href="#">刪除</a>
+                    <form action="{{ Str::limit($post->content,30) }}" method="post" style="display: inline-block">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                        <button type="submit" class="btn btn-sm btn-danger">刪除</button>
                     </form>
                 </td>
             </tr>
